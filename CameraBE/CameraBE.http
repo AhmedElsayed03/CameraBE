@@ -1,0 +1,6 @@
+@CameraBE_HostAddress = http://localhost:5033
+
+GET {{CameraBE_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

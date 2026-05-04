@@ -145,3 +145,4 @@ C:\Users\aelsa\source\repos\CameraBE\CameraBE\obj\Debug\net8.0\CameraBE.pdb
 C:\Users\aelsa\source\repos\CameraBE\CameraBE\obj\Debug\net8.0\CameraBE.genruntimeconfig.cache
 C:\Users\aelsa\source\repos\CameraBE\CameraBE\obj\Debug\net8.0\ref\CameraBE.dll
 C:\Users\aelsa\source\repos\CameraBE\CameraBE\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\aelsa\source\repos\CameraBE\CameraBE\obj\Debug\net8.0\CameraBE.sourcelink.json

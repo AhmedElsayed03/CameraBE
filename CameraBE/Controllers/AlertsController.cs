@@ -24,11 +24,20 @@ namespace CameraBE.Controllers
         /// GET /api/alerts — Returns all alerts ordered by most recent first.
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Alert>>> GetAlerts()
+        public async Task<ActionResult<IEnumerable<AlertDto>>> GetAlerts()
         {
             return await _db.Alerts
                 .OrderByDescending(a => a.Timestamp)
-                .Include(a => a.Camera)
+                .Select(a => new AlertDto
+                {
+                    Id = a.Id,
+                    CameraId = a.CameraId,
+                    CameraName = a.Camera != null ? a.Camera.Name : null,
+                    Type = a.Type,
+                    Severity = a.Severity,
+                    Timestamp = a.Timestamp,
+                    CreatedAt = a.CreatedAt
+                })
                 .ToListAsync();
         }
 
@@ -77,5 +86,19 @@ namespace CameraBE.Controllers
         public int CameraId { get; set; }
         public string Type { get; set; } = "SAFE_OPEN";
         public string Severity { get; set; } = "Critical";
+    }
+
+    /// <summary>
+    /// DTO returned by GET /api/alerts — avoids circular reference and oversized payload.
+    /// </summary>
+    public class AlertDto
+    {
+        public int Id { get; set; }
+        public int CameraId { get; set; }
+        public string? CameraName { get; set; }
+        public string Type { get; set; } = string.Empty;
+        public string Severity { get; set; } = string.Empty;
+        public DateTime Timestamp { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

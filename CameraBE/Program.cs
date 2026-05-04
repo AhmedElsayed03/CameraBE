@@ -1,4 +1,3 @@
-
 using CameraBE.Data;
 using CameraBE.Hubs;
 using Microsoft.EntityFrameworkCore;
@@ -23,13 +22,14 @@ namespace CameraBE
             // --- SignalR for real-time alert push ---
             builder.Services.AddSignalR();
 
-            // --- CORS: allow any origin for frontend/API testing ---
+            // --- CORS: allow frontend origin with credentials (required for SignalR) ---
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
-                    policy.AllowAnyOrigin()
+                    policy.WithOrigins("http://localhost:3000", "http://localhost:5173") // add your frontend URL(s) here
                           .AllowAnyHeader()
-                          .AllowAnyMethod());
+                          .AllowAnyMethod()
+                          .AllowCredentials()); // required for SignalR
             });
 
             builder.Services.AddEndpointsApiExplorer();
@@ -41,7 +41,15 @@ namespace CameraBE
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                db.Database.Migrate();
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                try
+                {
+                    db.Database.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "An error occurred while migrating the database.");
+                }
             }
 
             if (app.Environment.IsDevelopment())

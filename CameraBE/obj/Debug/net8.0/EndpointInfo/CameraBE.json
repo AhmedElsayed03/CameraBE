@@ -18,7 +18,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Alert"
+                    "$ref": "#/components/schemas/AlertDto"
                   }
                 }
               },
@@ -26,7 +26,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Alert"
+                    "$ref": "#/components/schemas/AlertDto"
                   }
                 }
               },
@@ -34,7 +34,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Alert"
+                    "$ref": "#/components/schemas/AlertDto"
                   }
                 }
               }
@@ -166,6 +166,40 @@
           },
           "camera": {
             "$ref": "#/components/schemas/Camera"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AlertDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cameraId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cameraName": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "severity": {
+            "type": "string",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false

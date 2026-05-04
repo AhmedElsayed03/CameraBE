@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # CCTV AI Monitoring System — Run Instructions
 
 ## Architecture

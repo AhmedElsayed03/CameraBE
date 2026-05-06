@@ -146,3 +146,5 @@ C:\Users\aelsa\source\repos\CameraBE\CameraBE\obj\Debug\net8.0\CameraBE.genrunti
 C:\Users\aelsa\source\repos\CameraBE\CameraBE\obj\Debug\net8.0\ref\CameraBE.dll
 C:\Users\aelsa\source\repos\CameraBE\CameraBE\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\aelsa\source\repos\CameraBE\CameraBE\obj\Debug\net8.0\CameraBE.sourcelink.json
+C:\Users\aelsa\source\repos\CameraBE\CameraBE\bin\Debug\net8.0\Npgsql.dll
+C:\Users\aelsa\source\repos\CameraBE\CameraBE\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

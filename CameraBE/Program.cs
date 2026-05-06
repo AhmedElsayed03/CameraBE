@@ -13,7 +13,7 @@ namespace CameraBE
 
             // --- Database ---
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // --- Controllers with JSON cycle handling ---
             builder.Services.AddControllers()
@@ -37,20 +37,7 @@ namespace CameraBE
 
             var app = builder.Build();
 
-            // --- Auto-migrate and seed on startup ---
-            using (var scope = app.Services.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-                try
-                {
-                    db.Database.Migrate();
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, "An error occurred while migrating the database.");
-                }
-            }
+            // --- Tables already exist in the database, no migrations needed ---
 
             if (app.Environment.IsDevelopment())
             {

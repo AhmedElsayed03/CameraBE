@@ -1,5 +1,6 @@
 using CameraBE.Data;
 using CameraBE.Hubs;
+using CameraBE.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -21,6 +22,12 @@ namespace CameraBE
 
             // --- SignalR for real-time alert push ---
             builder.Services.AddSignalR();
+
+            // --- Alert delay settings ---
+            builder.Services.Configure<AlertSettings>(
+                builder.Configuration.GetSection("AlertSettings"));
+            builder.Services.AddSingleton<AlertDelayService>();
+            builder.Services.AddHostedService(sp => sp.GetRequiredService<AlertDelayService>());
 
             // --- CORS: allow frontend origin with credentials (required for SignalR) ---
             builder.Services.AddCors(options =>

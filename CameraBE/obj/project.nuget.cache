@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "s3SL5/E/+FI=",
+  "dgSpecHash": "/1tNNfnzTVM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\aelsa\\source\\repos\\CameraBE\\CameraBE\\CameraBE.csproj",
+  "projectFilePath": "C:\\Users\\aelsa\\Downloads\\front\\CameraBE\\CameraBE\\CameraBE.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aelsa\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\aelsa\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

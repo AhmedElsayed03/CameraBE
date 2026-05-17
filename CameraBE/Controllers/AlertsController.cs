@@ -1,8 +1,7 @@
 using CameraBE.Data;
 using CameraBE.Entities;
-using CameraBE.Hubs;
+using CameraBE.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CameraBE.Controllers
@@ -12,12 +11,12 @@ namespace CameraBE.Controllers
     public class AlertsController : ControllerBase
     {
         private readonly AppDbContext _db;
-        private readonly IHubContext<AlertHub> _hubContext;
+        private readonly AlertDelayService _alertDelayService;
 
-        public AlertsController(AppDbContext db, IHubContext<AlertHub> hubContext)
+        public AlertsController(AppDbContext db, AlertDelayService alertDelayService)
         {
             _db = db;
-            _hubContext = hubContext;
+            _alertDelayService = alertDelayService;
         }
 
         /// <summary>
@@ -63,16 +62,9 @@ namespace CameraBE.Controllers
             _db.Alerts.Add(alert);
             await _db.SaveChangesAsync();
 
-            // Broadcast alert to all connected SignalR clients
-            await _hubContext.Clients.All.SendAsync("ReceiveAlert", new
-            {
-                alert.Id,
-                alert.CameraId,
-                CameraName = camera.Name,
-                alert.Type,
-                alert.Severity,
-                alert.Timestamp
-            });
+            // Hand off to the delay service — it will broadcast via SignalR only after
+            // the alert has been sustained continuously for SignalRDelaySeconds.
+            _alertDelayService.RegisterAlert(dto.CameraId, dto.Type, alert.Id, camera.Name, dto.Severity);
 
             return CreatedAtAction(nameof(GetAlerts), new { id = alert.Id }, alert);
         }
